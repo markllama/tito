@@ -52,11 +52,11 @@ class TaggerTest(unittest.TestCase):
         actual = self.tagger._get_new_tag(input)
         self.assertEqual(actual, expected)
 
-    def test_get_suffixed_version(self):
+    def test_add_suffix(self):
 
         input = 'hello'
         expected = 'hellomytagsuffix'
-        actual = self.tagger._get_suffixed_version(input)
+        actual = self.tagger._add_suffix(input)
         self.assertEqual(actual, expected)
 
     def test_get_version(self):

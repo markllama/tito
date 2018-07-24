@@ -451,7 +451,7 @@ class VersionTagger(ConfigObject):
         """
         self._clear_package_metadata()
 
-        new_version_w_suffix = self._get_suffixed_version(new_version)
+        new_version_w_suffix = self._add_suffix(new_version)
         # Write out our package metadata:
         metadata_file = os.path.join(self.rel_eng_dir, "packages",
                 self.project_name)
@@ -468,7 +468,7 @@ class VersionTagger(ConfigObject):
                '[%(name)s] %(release_type)s [%(version)s].')
         if self.config.has_option(BUILDCONFIG_SECTION, "tag_commit_message_format"):
             fmt = self.config.get(BUILDCONFIG_SECTION, "tag_commit_message_format")
-        new_version_w_suffix = self._get_suffixed_version(new_version)
+        new_version_w_suffix = self._add_suffix(new_version)
         try:
             msg = fmt % {
                 'name': self.project_name,
@@ -550,9 +550,10 @@ class VersionTagger(ConfigObject):
 
     def _get_new_tag(self, version_and_release):
         """ Returns the actual tag we'll be creating. """
-        suffixed_version = self._get_suffixed_version(self._get_version(version_and_release))
-        release = self._get_release(version_and_release)
-        return self._get_tag_for_version(suffixed_version, release)
+        version = self._get_version(version_and_release)
+        suffixed_release = self._add_suffix(self._get_release(version_and_release))
+        return self._get_tag_for_version(version, suffixed_release)
+
 
     def _get_release(self, version_and_release):
         return version_and_release.split('-')[-1]
@@ -560,7 +561,7 @@ class VersionTagger(ConfigObject):
     def _get_version(self, version_and_release):
         return version_and_release.split('-')[-2]
 
-    def _get_suffixed_version(self, version):
+    def _add_suffix(self, version):
         """ If global config specifies a tag suffix, use it """
         suffix = ""
         if self.config.has_option(BUILDCONFIG_SECTION, "tag_suffix"):
