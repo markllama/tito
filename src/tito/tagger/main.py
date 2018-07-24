@@ -554,7 +554,6 @@ class VersionTagger(ConfigObject):
         suffixed_release = self._add_suffix(self._get_release(version_and_release))
         return self._get_tag_for_version(version, suffixed_release)
 
-
     def _get_release(self, version_and_release):
         return version_and_release.split('-')[-1]
 

@@ -16,9 +16,10 @@
 
 import unittest
 
+import tito.tagger
+
 BUILDCONFIG_SECTION = "buildconfig"
 
-import tito.tagger
 
 class TestConfig():
 
@@ -38,13 +39,14 @@ class TestConfig():
     def get(self, sect_id, opt_name):
         return self._options[sect_id][opt_name]
 
+
 class TaggerTest(unittest.TestCase):
 
     def setUp(self):
         config = TestConfig()
         self.tagger = tito.tagger.VersionTagger(config)
         self.tagger.project_name = "myproject"
-        
+
     def test_get_new_tag(self):
 
         input = "3.2.1-1"
