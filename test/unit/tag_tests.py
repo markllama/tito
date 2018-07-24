@@ -48,7 +48,7 @@ class TaggerTest(unittest.TestCase):
     def test_get_new_tag(self):
 
         input = "3.2.1-1"
-        expected = "myproject-3.2.1mytagsuffix-1"
+        expected = "myproject-3.2.1-1mytagsuffix"
         actual = self.tagger._get_new_tag(input)
         self.assertEqual(actual, expected)
 
